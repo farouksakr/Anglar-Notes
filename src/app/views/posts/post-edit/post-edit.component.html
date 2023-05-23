@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="jumbotron mt-5">
+    <div class="container">
+      <h3>Edit Post</h3>
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="editForm" (submit)="onSubmit()">
+
+          <div class="form-group">
+            <label for="postTitle">Title</label>
+            <input formControlName="title" id="postTitle" name="postTitle" type="text" class="form-control mb-3" placeholder="Edit Title" />
+            <!-- message show on error -->
+            <div *ngIf="submitted && title?.invalid && title?.touched">
+              <small class="text-danger" *ngIf="submitted && title?.errors?.['required']">Title is required</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="postDescription">Description</label>
+            <textarea formControlName="description" rows="6" id="postDescription" class="form-control mb-3" placeholder="Edit Description"></textarea>
+            <!-- message show on error -->
+            <div *ngIf="submitted && description?.invalid && description?.touched">
+              <small class="text-danger" *ngIf="submitted && description?.errors?.['required']">Description is required</small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Edit</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

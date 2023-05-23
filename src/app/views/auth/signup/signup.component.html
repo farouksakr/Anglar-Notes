@@ -1,0 +1,28 @@
+<form class="form-signin" [formGroup]="signupForm" (submit)="onSubmit()">
+  <h1 class="h3 text-uppercase">Please sign in</h1>
+
+  <!-- <label for="fullName">Full name</label> -->
+  <input type="text" id="fullName" class="form-control mb-2" formControlName="name" placeholder="Full Name" [ngClass]="{ 'is-invalid': submitted && name?.errors }" />
+  <div *ngIf="submitted && name?.errors" class="invalid-feedbak">
+    <div class="text-danger" *ngIf="name?.errors?.['required']">full name is required</div>
+  </div>
+
+  <!-- <label for="inputEmail">Email address</label> -->
+  <input type="email" id="inputEmail" class="form-control mb-2" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && email?.errors }" />
+  <div *ngIf="submitted && email?.errors" class="invalid-feedbak">
+    <div class="text-danger" *ngIf="email?.errors?.['required']">email is required</div>
+  </div>
+
+  <!-- <label form="inputPassword">Password</label> -->
+  <input type="password" id="inputPassword" class="form-control mb-2" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && password?.errors }" />
+  <div *ngIf="submitted && password?.errors" class="invalid-feedbak">
+    <div class="text-danger" *ngIf="password?.errors?.['required']">password is required</div>
+    <div class="text-danger" *ngIf="password?.errors?.['required']">password must be at least 6 digits</div>
+  </div>
+
+  <button class="btn btn-primary btn-block" type=* submit="">SignUp</button>
+
+  <P class="mt-5 mb-3 text-muted">I Have Account Already
+    <a [routerLink]="['../../auth/login']">Login</a>
+  </P>
+</form>

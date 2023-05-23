@@ -1,0 +1,64 @@
+<section class="resum-section p-3 p-lg-5 d-flex align-items-center">
+  <div class="w-100">
+
+    <div class="input-group mb-3">
+      <div class="search-wrap d-flex align-items-center">
+
+        <button class="btn btn-success" type="button" (click)="open(content , ' ')">
+          <i class="fas fa-plus"></i>
+        </button>
+
+        <input [(ngModel)]="searchText" type="text" name="search" autocomplete="off" placeholder="search here..." class="form-control search-text">
+
+        <div class="input-group-append">
+          <button class="btn btn-warning" type="button" id="button-addon2">Search</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card-columns">
+      <ng-container *ngIf="notes">
+        <div class="card" *ngFor="let note of notes | filter:searchText">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ note.title }}
+              <a href="javascript:;" class="d-none" (click)="open(content , note.id)"><i class="fa fa-edit"></i></a>
+            </h5>
+            <p class="card-text">{{ note.description }}</p>
+            <a href="javascript:;" class="btn btn-default text-danger deleteItem" (click)="deleteItem(deleteModal, note.id)"><i class="fa fa-trash"></i></a>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</section>
+
+<!-- delete modal -->
+<ng-template #deleteModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">ITEM DELETION !</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+    <p class="fw-bold">Are you sure you want to delete <span class="text-primary">this item ?</span></p>
+	</div>
+	<div class="modal-body">
+    <p class="fw-bold">All information associated to this item will be permanently deleted.
+      <span class="text-danger">This operation cannot be undone.</span></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">cancel</button>
+      <button type="button" class="btn btn-danger" (click)="c('Save click')">ok</button>
+    </div>
+</ng-template>
+
+<!-- add or edit model -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Item Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <app-note-show [noteId]="noteId" (notes)="getUpdatedNotes($event)"></app-note-show>
+</ng-template>
